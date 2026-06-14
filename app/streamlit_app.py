@@ -27,9 +27,9 @@ if css_path.exists():
 pages_dir = Path(__file__).parent / "pages"
 
 executive = st.Page(str(pages_dir / "executive_dashboard.py"),
-                    title="Executive Dashboard", icon="📊", default=True)
+                    title="Executive Dashboard", icon="📊")
 data_upload = st.Page(str(pages_dir / "data_upload.py"),
-                      title="Data Ingestion Hub", icon="📥")
+                      title="Data Ingestion Hub", icon="📥", default=True)
 entity_res = st.Page(str(pages_dir / "entity_resolution.py"),
                      title="Entity Resolution", icon="🔗")
 knowledge_graph = st.Page(str(pages_dir / "knowledge_graph.py"),
