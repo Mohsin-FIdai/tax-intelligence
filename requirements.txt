@@ -24,14 +24,10 @@ networkx>=3.2
 # --- Machine Learning ---
 scikit-learn>=1.4.0
 xgboost>=2.0.0
-lightgbm>=4.2.0
 shap>=0.44.0
 
 # --- Entity Resolution ---
 rapidfuzz>=3.6.0
-urduhack>=1.1.1
-polyfuzz>=0.4.0
-sentence-transformers>=2.3.1
 
 # --- Data Generation ---
 faker>=22.0.0
