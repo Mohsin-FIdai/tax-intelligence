@@ -182,12 +182,19 @@ with exp2:
                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                        use_container_width=True)
 with exp3:
-    if st.button("📄 Generate PDF Report", use_container_width=True):
-        try:
-            from core.reports.pdf_generator import PDFReportGenerator
-            gen = PDFReportGenerator()
-            cit_list = filtered.head(50).to_dict("records")
-            path = gen.generate_investigation_report(cit_list)
-            st.success(f"✅ Report saved: {path}")
-        except Exception as e:
-            st.error(f"Failed: {e}")
+    try:
+        from core.reports.pdf_generator import PDFReportGenerator
+        gen = PDFReportGenerator()
+        cit_list = filtered.head(50).to_dict("records")
+        path = gen.generate_investigation_report(cit_list)
+        with open(path, "rb") as f:
+            pdf_bytes = f.read()
+        st.download_button(
+            label="📄 Download PDF Report",
+            data=pdf_bytes,
+            file_name="Investigation_Report.pdf",
+            mime="application/pdf",
+            use_container_width=True
+        )
+    except Exception as e:
+        st.error(f"Failed to generate report: {e}")

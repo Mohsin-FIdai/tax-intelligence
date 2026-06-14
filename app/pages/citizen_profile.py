@@ -268,19 +268,31 @@ if not flags:
 st.markdown("---")
 col1, col2, col3 = st.columns(3)
 with col1:
-    if st.button("📄 Generate PDF Report", use_container_width=True, type="primary"):
-        try:
-            from core.reports.pdf_generator import PDFReportGenerator
-            gen = PDFReportGenerator()
-            profile = citizen.to_dict()
-            risk_result = {"deviation_score": dev_score, "risk_category": risk_cat}
-            audit = {"flags": [{"description": d, "severity": s} for _, d, s in flags],
-                     "summary": f"Risk assessment for {name}", "confidence": 85,
-                     "recommendations": ["Review asset disclosures"]}
-            path = gen.generate_citizen_report(profile, risk_result, audit)
-            st.success(f"✅ Report generated: {path}")
-        except Exception as e:
-            st.error(f"Report generation failed: {e}")
+    # Pre-generate PDF bytes for download
+    try:
+        from core.reports.pdf_generator import PDFReportGenerator
+        gen = PDFReportGenerator()
+        profile = citizen.to_dict()
+        risk_result = {"deviation_score": dev_score, "risk_category": risk_cat}
+        audit = {"flags": [{"description": d, "severity": s} for _, d, s in flags],
+                 "summary": f"Risk assessment for {name}", "confidence": 85,
+                 "recommendations": ["Review asset disclosures"]}
+        
+        # We will generate it to a temp file and read it
+        path = gen.generate_citizen_report(profile, risk_result, audit)
+        with open(path, "rb") as f:
+            pdf_bytes = f.read()
+            
+        st.download_button(
+            label="📄 Download PDF Report",
+            data=pdf_bytes,
+            file_name=f"RPT_{citizen.get('citizen_id', 'UNKNOWN')}.pdf",
+            mime="application/pdf",
+            use_container_width=True,
+            type="primary"
+        )
+    except Exception as e:
+        st.error(f"Report generation error: {e}")
 with col2:
     if st.button("🚩 Flag for Investigation", use_container_width=True):
         st.success(f"🚩 {name} flagged for investigation.")

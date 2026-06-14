@@ -25,6 +25,10 @@ def _fmt_pkr(amount: float) -> str:
         return f"PKR {amount / 1_00_000:,.1f} L"
     return f"PKR {amount:,.0f}"
 
+def _s(text: Any) -> str:
+    """Sanitize text to prevent FPDF unicode errors."""
+    return str(text).encode('latin-1', 'replace').decode('latin-1')
+
 
 class PDFReportGenerator:
     """Generate professional PDF reports for citizen profiles and investigations."""
