@@ -19,6 +19,9 @@ st.markdown("""
             Upload real organization datasets to securely process them through the Intelligence Pipeline.
             Files are stored locally in <code style="color:#ff8c00;">data/raw_uploads/</code> and are never sent to external servers.
         </p>
+    </div>
+""", unsafe_allow_html=True)
+
 # Hackathon Demo Button
 st.markdown("### ✨ Demo Mode")
 if st.button("See Preview with Sample Data", type="primary", use_container_width=True):
