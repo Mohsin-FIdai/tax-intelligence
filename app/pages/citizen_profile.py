@@ -270,7 +270,11 @@ col1, col2, col3 = st.columns(3)
 with col1:
     # Pre-generate PDF bytes for download
     try:
+        import importlib
+        import core.reports.pdf_generator
+        importlib.reload(core.reports.pdf_generator)
         from core.reports.pdf_generator import PDFReportGenerator
+        
         gen = PDFReportGenerator()
         profile = citizen.to_dict()
         risk_result = {"deviation_score": dev_score, "risk_category": risk_cat}

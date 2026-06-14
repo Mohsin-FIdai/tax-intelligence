@@ -183,7 +183,11 @@ with exp2:
                        use_container_width=True)
 with exp3:
     try:
+        import importlib
+        import core.reports.pdf_generator
+        importlib.reload(core.reports.pdf_generator)
         from core.reports.pdf_generator import PDFReportGenerator
+        
         gen = PDFReportGenerator()
         cit_list = filtered.head(50).to_dict("records")
         path = gen.generate_investigation_report(cit_list)
