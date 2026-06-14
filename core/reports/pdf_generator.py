@@ -187,7 +187,7 @@ class PDFReportGenerator:
         pdf.rect(0, 0, 297, 30, "F")
         pdf.set_text_color(0, 212, 170)
         pdf.set_font("Helvetica", "B", 16)
-        pdf.cell(0, 10, "Tax Intelligence Authority — Investigation Report", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 10, "Tax Intelligence Authority - Investigation Report", new_x="LMARGIN", new_y="NEXT")
         pdf.set_font("Helvetica", "", 9)
         pdf.set_text_color(200, 200, 210)
         pdf.cell(0, 5, f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}  |  "
