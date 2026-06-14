@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "C:\Users\Mohsin\.gemini\antigravity\scratch\tax-intelligence\scratch_test.py", line 4, in <module>
+    run_pipeline.run_full_pipeline(use_synthetic=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Mohsin\.gemini\antigravity\scratch\tax-intelligence\run_pipeline.py", line 199, in run_full_pipeline
+    citizens_df = tge.process_dataframe(citizens_df)
+  File "C:\Users\Mohsin\.gemini\antigravity\scratch\tax-intelligence\core\risk_scoring\tax_gap_estimator.py", line 78, in process_dataframe
+    res = self.estimate_gap(declared, net_worth)
+  File "C:\Users\Mohsin\.gemini\antigravity\scratch\tax-intelligence\core\risk_scoring\tax_gap_estimator.py", line 46, in estimate_gap
+    declared_income = max(0.0, float(declared_income))
+                               ~~~~~^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: ''

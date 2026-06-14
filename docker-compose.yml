@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  streamlit:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./models_store:/app/models_store
+      - ./reports:/app/reports
+    command: streamlit run app/streamlit_app.py --server.port=8501 --server.address=0.0.0.0
+    restart: unless-stopped
+
+  fastapi:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./models_store:/app/models_store
+      - ./reports:/app/reports
+    command: uvicorn backend.main:app --host 0.0.0.0 --port 8000
+    restart: unless-stopped

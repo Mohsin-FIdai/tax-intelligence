@@ -1,0 +1,113 @@
+Starting pipeline...
+======================================================================
+  GRAPH AI TAX INTELLIGENCE — FULL PIPELINE
+======================================================================
+
+[1/6] Generating synthetic data...
+Generating 10,000 synthetic citizen profiles ...
+  [OK] 10,000 citizen profiles created
+  Generating tax_records ...
+    [OK] 20,022 rows | 11 cols | 7.5% nulls → tax_records.csv
+  Generating vehicle_records ...
+    [OK] 9,991 rows | 10 cols | 1.8% nulls → vehicle_records.csv
+  Generating property_records ...
+    [OK] 12,326 rows | 10 cols | 2.9% nulls → property_records.csv
+  Generating utility_bills ...
+    [OK] 14,066 rows | 8 cols | 2.9% nulls → utility_bills.csv
+  Generating banking_indicators ...
+    [OK] 13,971 rows | 7 cols | 2.6% nulls → banking_indicators.csv
+  Generating travel_records ...
+    [OK] 7,051 rows | 9 cols | 2.5% nulls → travel_records.csv
+  Generating business_records ...
+    [OK] 3,442 rows | 9 cols | 2.4% nulls → business_records.csv
+  Generating mobile_records ...
+    [OK] 15,445 rows | 6 cols | 2.0% nulls → mobile_records.csv
+
+  Ground truth saved → _ground_truth.csv
+
+============================================================
+  SYNTHETIC DATA GENERATION COMPLETE
+============================================================
+  Total citizens:            10,000
+  Tax filers:                4,000 (40.0%)
+  Non-filers:                6,000 (60.0%)
+  Anomalies (mismatch):      1,500 (15.0%)
+  Extreme outliers:          500 (5.0%)
+  Active non-filers:         1,500
+  Output directory:          C:\Users\Mohsin\.gemini\antigravity\scratch\tax-intelligence\data\synthetic
+============================================================
+    tax_records.csv                2004.6 KB
+    vehicle_records.csv             878.8 KB
+    property_records.csv           1507.3 KB
+    utility_bills.csv              1373.2 KB
+    banking_indicators.csv         1042.4 KB
+    travel_records.csv              681.9 KB
+    business_records.csv            379.4 KB
+    mobile_records.csv             1055.3 KB
+
+
+[2/6] Running ETL pipeline...
+  ✓ _ground_truth: 10000 → 10000 rows (0.43s)
+  ✓ banking_indicators: 13971 → 13971 rows (0.24s)
+  ✓ business_records: 3442 → 3442 rows (0.09s)
+  ✓ mobile_records: 15445 → 15445 rows (0.25s)
+  ✓ property_records: 12326 → 12326 rows (0.32s)
+  ✓ tax_records: 20022 → 20022 rows (0.5s)
+  ✓ travel_records: 7051 → 7051 rows (0.15s)
+  ✓ utility_bills: 14066 → 14066 rows (0.27s)
+  ✓ vehicle_records: 9991 → 9991 rows (0.23s)
+
+[3/6] Running entity resolution...
+  ✓ Resolved 96,314 records → 10,001 unique citizens
+  ✓ Logged 3,598,137 entity matches
+  ✓ Resolved → 10,001 unique citizens
+
+[4/6] Running ML pipeline...
+  ✓ Feature vectors: (10001, 26)
+  ✓ Anomaly detection complete. Mean suspicion: 18.4%
+C:\Users\Mohsin\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\xgboost\training.py:200: UserWarning: [01:44:54] WARNING: C:\actions-runner\_work\xgboost\xgboost\src\learner.cc:782: 
+Parameters: { "use_label_encoder" } are not used.
+
+  bst.update(dtrain, iteration=i, fobj=obj)
+C:\Users\Mohsin\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\xgboost\training.py:200: UserWarning: [01:44:55] WARNING: C:\actions-runner\_work\xgboost\xgboost\src\learner.cc:782: 
+Parameters: { "use_label_encoder" } are not used.
+
+  bst.update(dtrain, iteration=i, fobj=obj)
+C:\Users\Mohsin\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\xgboost\training.py:200: UserWarning: [01:44:55] WARNING: C:\actions-runner\_work\xgboost\xgboost\src\learner.cc:782: 
+Parameters: { "use_label_encoder" } are not used.
+
+  bst.update(dtrain, iteration=i, fobj=obj)
+C:\Users\Mohsin\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\xgboost\training.py:200: UserWarning: [01:44:56] WARNING: C:\actions-runner\_work\xgboost\xgboost\src\learner.cc:782: 
+Parameters: { "use_label_encoder" } are not used.
+
+  bst.update(dtrain, iteration=i, fobj=obj)
+C:\Users\Mohsin\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\xgboost\training.py:200: UserWarning: [01:44:56] WARNING: C:\actions-runner\_work\xgboost\xgboost\src\learner.cc:782: 
+Parameters: { "use_label_encoder" } are not used.
+
+  bst.update(dtrain, iteration=i, fobj=obj)
+C:\Users\Mohsin\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\xgboost\training.py:200: UserWarning: [01:44:57] WARNING: C:\actions-runner\_work\xgboost\xgboost\src\learner.cc:782: 
+Parameters: { "use_label_encoder" } are not used.
+
+  bst.update(dtrain, iteration=i, fobj=obj)
+  ✓ Risk classifier trained. CV Accuracy: 0.998
+
+[5/6] Computing risk scores...
+  ✓ Risk scoring complete. Distribution:
+    Cat A (Tax Compliant            ): 565
+    Cat B (Needs Review             ): 3,829
+    Cat C (Suspicious               ): 2,553
+    Cat D (Likely Tax Evader        ): 2,458
+    Cat E (Confirmed Tax Deviation  ): 596
+
+[6/6] Building knowledge graph...
+  ✓ Knowledge Graph: 97,127 nodes, 314,119 edges
+
+======================================================================
+  ✅ PIPELINE COMPLETE in 80.3 seconds
+  📊 Citizens: 10,001
+  🕸️  Graph: 97,127 nodes, 314,119 edges
+  ⚠️  High-risk (Cat D+E): 3,054
+======================================================================
+
+  Launch dashboard: streamlit run app/streamlit_app.py
+Pipeline finished successfully.
