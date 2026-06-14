@@ -35,12 +35,12 @@ env.bak/
 venv.bak/
 
 # Project specifics
-data/synthetic/*
-!data/synthetic/.gitkeep
-data/processed/*
-!data/processed/.gitkeep
-models_store/*
-!models_store/.gitkeep
+# data/synthetic/*
+# !data/synthetic/.gitkeep
+# data/processed/*
+# !data/processed/.gitkeep
+# models_store/*
+# !models_store/.gitkeep
 backend.log
 frontend.log
 pipeline_log.txt

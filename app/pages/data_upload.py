@@ -22,6 +22,12 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
+# Hackathon Demo Button
+st.markdown("### ✨ Demo Mode")
+if st.button("See Preview with Sample Data", type="primary", use_container_width=True):
+    st.success("✅ Sample Data is automatically pre-loaded on the server! Please navigate directly to the **Executive Dashboard** on the left menu to view the full platform overview.", icon="🎉")
+st.markdown("---")
+
 # Define the expected files
 UPLOAD_MAP = {
     "Tax / Income Records (FBR)": "tax_records.csv",
