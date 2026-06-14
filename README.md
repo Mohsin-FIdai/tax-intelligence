@@ -15,7 +15,7 @@
 **Team:** Tech Titans
 
 ## 🌐 Live Demo
-*Live Demo URL:* [https://tax-intelligence-nvzzehjuf88ynz8humgtdb.streamlit.app/](https://tax-intelligence-nvzzehjuf88ynz8humgtdb.streamlit.app/)
+*Live Demo URL:* [Tax Intelligence Live Dashboard](https://tax-intelligence-nvzzehjuf88ynz8humgtdb.streamlit.app/)
 
 ---
 
