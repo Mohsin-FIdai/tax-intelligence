@@ -67,7 +67,7 @@ class PDFReportGenerator:
         pdf.set_font("Helvetica", "", 10)
         pdf.set_text_color(200, 200, 210)
         pdf.cell(0, 6, "CONFIDENTIAL - Citizen Risk Assessment Report", new_x="LMARGIN", new_y="NEXT")
-        pdf.cell(0, 6, f"Report ID: RPT-{cid}  |  Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+        pdf.cell(0, 6, _s(f"Report ID: RPT-{cid}  |  Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}"),
                  new_x="LMARGIN", new_y="NEXT")
         pdf.ln(8)
 
@@ -133,16 +133,16 @@ class PDFReportGenerator:
             marker = {"CRITICAL": "[!]", "WARNING": "[*]", "INFO": "[i]", "OK": "[+]"}.get(sev, "[?]")
             pdf.set_font("Helvetica", "", 9)
             pdf.set_text_color(80, 80, 80)
-            pdf.cell(10, 5, marker)
+            pdf.cell(10, 5, _s(marker))
             pdf.set_text_color(0, 0, 0)
-            pdf.cell(0, 5, flag["description"], new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(0, 5, _s(flag["description"]), new_x="LMARGIN", new_y="NEXT")
 
         pdf.ln(4)
 
         # ── Summary ─────────────────────────────────────────────────
         self._section_header(pdf, "SUMMARY")
         pdf.set_font("Helvetica", "", 9)
-        pdf.multi_cell(0, 5, audit_trail.get("summary", "No summary available."))
+        pdf.multi_cell(0, 5, _s(audit_trail.get("summary", "No summary available.")))
         pdf.ln(2)
 
         # ── Recommendations ─────────────────────────────────────────
@@ -150,7 +150,7 @@ class PDFReportGenerator:
         for rec in audit_trail.get("recommendations", []):
             pdf.set_font("Helvetica", "", 9)
             pdf.cell(5, 5, "-")  # bullet
-            pdf.cell(0, 5, f" {rec}", new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(0, 5, _s(f" {rec}"), new_x="LMARGIN", new_y="NEXT")
         pdf.ln(4)
 
         # ── Footer / Disclaimer ─────────────────────────────────────
@@ -207,17 +207,17 @@ class PDFReportGenerator:
         # Table rows
         pdf.set_font("Helvetica", "", 7)
         for i, c in enumerate(citizens_list[:200], 1):
-            pdf.cell(widths[0], 5, str(i), border=1)
-            pdf.cell(widths[1], 5, str(c.get("citizen_id", ""))[:12], border=1)
-            pdf.cell(widths[2], 5, str(c.get("canonical_name", ""))[:30], border=1)
-            pdf.cell(widths[3], 5, str(c.get("cnic", "")), border=1)
-            pdf.cell(widths[4], 5, str(c.get("city", ""))[:15], border=1)
-            pdf.cell(widths[5], 5, _fmt_pkr(float(c.get("declared_income", 0))), border=1)
-            pdf.cell(widths[6], 5, _fmt_pkr(float(c.get("estimated_net_worth", 0))), border=1)
-            pdf.cell(widths[7], 5, f"{c.get('deviation_score', 0):.0f}", border=1)
+            pdf.cell(widths[0], 5, _s(str(i)), border=1)
+            pdf.cell(widths[1], 5, _s(str(c.get("citizen_id", ""))[:12]), border=1)
+            pdf.cell(widths[2], 5, _s(str(c.get("canonical_name", ""))[:30]), border=1)
+            pdf.cell(widths[3], 5, _s(str(c.get("cnic", ""))), border=1)
+            pdf.cell(widths[4], 5, _s(str(c.get("city", ""))[:15]), border=1)
+            pdf.cell(widths[5], 5, _s(_fmt_pkr(float(c.get("declared_income", 0)))), border=1)
+            pdf.cell(widths[6], 5, _s(_fmt_pkr(float(c.get("estimated_net_worth", 0)))), border=1)
+            pdf.cell(widths[7], 5, _s(f"{c.get('deviation_score', 0):.0f}"), border=1)
             cat = c.get("risk_category", "")
             label = RISK_CATEGORIES.get(cat, {}).get("label", cat)
-            pdf.cell(widths[8], 5, label[:18], border=1)
+            pdf.cell(widths[8], 5, _s(label[:18]), border=1)
             pdf.ln()
 
         pdf.output(str(output_path))
@@ -238,7 +238,7 @@ class PDFReportGenerator:
     def _key_value_row(pdf: "FPDF", key: str, value: str):
         pdf.set_font("Helvetica", "B", 9)
         pdf.set_text_color(80, 80, 80)
-        pdf.cell(55, 5, key)
+        pdf.cell(55, 5, _s(key))
         pdf.set_font("Helvetica", "", 9)
         pdf.set_text_color(0, 0, 0)
-        pdf.cell(0, 5, value, new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 5, _s(value), new_x="LMARGIN", new_y="NEXT")
