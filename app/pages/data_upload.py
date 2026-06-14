@@ -19,13 +19,22 @@ st.markdown("""
             Upload real organization datasets to securely process them through the Intelligence Pipeline.
             Files are stored locally in <code style="color:#ff8c00;">data/raw_uploads/</code> and are never sent to external servers.
         </p>
-    </div>
-""", unsafe_allow_html=True)
-
 # Hackathon Demo Button
 st.markdown("### ✨ Demo Mode")
 if st.button("See Preview with Sample Data", type="primary", use_container_width=True):
-    st.success("✅ Sample Data is automatically pre-loaded on the server! Please navigate directly to the **Executive Dashboard** on the left menu to view the full platform overview.", icon="🎉")
+    # Copy all synthetic data to raw_uploads to simulate uploading
+    import shutil
+    from config.settings import SYNTHETIC_DIR
+    
+    # Create target dir if it doesn't exist
+    RAW_UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
+    
+    # Copy all csv files from synthetic to raw_uploads
+    for csv_file in SYNTHETIC_DIR.glob("*.csv"):
+        if csv_file.name != "_ground_truth.csv":
+            shutil.copy(csv_file, RAW_UPLOADS_DIR / csv_file.name)
+            
+    st.rerun()
 st.markdown("---")
 
 # Define the expected files
